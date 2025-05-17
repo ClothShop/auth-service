@@ -35,7 +35,7 @@ func InitDB() {
 		log.Fatal(err)
 	}
 
-	m, err := migrate.NewWithDatabaseInstance("file://internal/config/db/migrations", "postgres", driver)
+	m, err := migrate.NewWithDatabaseInstance("file://internal/config/db/migrations", os.Getenv("DB_NAME"), driver)
 	if err != nil {
 		log.Fatal(err)
 	}
