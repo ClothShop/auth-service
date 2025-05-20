@@ -8,7 +8,6 @@ import (
 	"github.com/ClothShop/auth-service/internal/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"os"
 	"time"
 )
 
@@ -133,25 +132,25 @@ func HandleRefreshToken(c *gin.Context) {
 
 func setAuthCookies(c *gin.Context, access, refresh string) {
 	http.SetCookie(c.Writer, &http.Cookie{
-		Name:     "access_token",
-		Value:    access,
-		Path:     "/",
-		Domain:   os.Getenv("DOMAIN"),
+		Name:  "access_token",
+		Value: access,
+		Path:  "/",
+		//Domain:   os.Getenv("DOMAIN"),
 		MaxAge:   3600,
-		Secure:   true,
+		Secure:   false,
 		HttpOnly: true,
-		SameSite: http.SameSiteNoneMode,
+		SameSite: http.SameSiteLaxMode,
 	})
 
 	http.SetCookie(c.Writer, &http.Cookie{
-		Name:     "refresh_token",
-		Value:    refresh,
-		Path:     "/",
-		Domain:   os.Getenv("DOMAIN"),
+		Name:  "refresh_token",
+		Value: refresh,
+		Path:  "/",
+		//Domain:   os.Getenv("DOMAIN"),
 		MaxAge:   7 * 24 * 3600,
-		Secure:   true,
+		Secure:   false,
 		HttpOnly: true,
-		SameSite: http.SameSiteNoneMode,
+		SameSite: http.SameSiteLaxMode,
 	})
 }
 
